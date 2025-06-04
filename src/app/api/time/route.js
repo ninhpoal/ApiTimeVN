@@ -1,3 +1,4 @@
+
 import { NextResponse } from 'next/server';
 
 export async function GET() {
@@ -40,7 +41,7 @@ export async function GET() {
   
   const dateTime = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}T${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}.${milliSeconds.toString().padStart(7, '0')}`;
   
-  return NextResponse.json({
+  const response = NextResponse.json({
     year,
     month,
     day,
@@ -55,4 +56,11 @@ export async function GET() {
     dayOfWeek,
     dstActive: false
   });
+
+  // Set CORS headers
+  response.headers.set('Access-Control-Allow-Origin', '*');
+  response.headers.set('Access-Control-Allow-Methods', 'GET');
+  response.headers.set('Access-Control-Allow-Headers', 'Content-Type');
+  
+  return response;
 }
